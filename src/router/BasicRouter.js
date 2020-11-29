@@ -8,6 +8,10 @@ import ChangePassword from '../component/user/ChangePassword'
 import CreatePaper from '../component/teacher/CreatePaper';
 import EditPaper from '../component/teacher/EditPaper';
 import PaperList from '../component/teacher/PaperList';
+import SearchPaper from '../component/student/SearchPaper';
+import CreatePaperAnswer from '../component/student/CreatePaperAnswer';
+import PaperAnswerList from '../component/student/PaperAnswerList';
+import AnswerProblem from '../component/student/AnswerProblem';
 
 class BasicRouter extends Component {
 
@@ -33,6 +37,18 @@ class BasicRouter extends Component {
                         ></Route>
                         <Route
                             path='/paperList' exact component={PaperList}
+                        ></Route>
+                        <Route
+                            path='/searchPaper' exact component={SearchPaper}
+                        ></Route>
+                        <Route
+                            path='/createPaperAnswer' exact component={CreatePaperAnswer}
+                        ></Route>
+                        <Route
+                            path='/paperAnswerList' exact component={PaperAnswerList}
+                        ></Route>
+                        <Route
+                            path='/answerProblem' exact component={AnswerProblem}
                         ></Route>
                     </Page>
                 </Switch>

@@ -83,6 +83,7 @@ class PaperList extends Component {
                                 state: newState
                             }, (res) => {
                                 message.success('变更成功！')
+                                this.getPaperListRequest()
                             }, this.props.history)
                         }}
                     />
