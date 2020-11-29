@@ -1,0 +1,17 @@
+.site-page-header {
+    margin-top: 20px;
+    border: 1px solid rgb(235, 237, 240);
+    background: #fff;
+}
+
+.component-content-button {
+    width: 100%;
+}
+
+.component-content {
+    min-height: 280px;
+    padding: 24px;
+    background: #fff;
+}
+
+
