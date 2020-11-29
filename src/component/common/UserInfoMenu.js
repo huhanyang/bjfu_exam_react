@@ -9,10 +9,6 @@ import * as Ajax from '../../util/Ajax'
 
 class UserInfoMenu extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     logoutRequest = () => {
         Ajax.GET('/exam/user/logout', (res) => this.props.history.push('/login'), this.props.history);
     }
@@ -49,7 +45,7 @@ class UserInfoMenu extends Component {
             menuItems = this.adminMenuItems;
         }
         let menuContent = menuItems.map((item) => (
-            <Menu.Item>
+            <Menu.Item key={item.url}>
                 <Link to={item.url}>
                     {item.msg}
                 </Link>
@@ -68,7 +64,7 @@ class UserInfoMenu extends Component {
         );
         return (
             <Dropdown overlay={menu}>
-                <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+                <a className="ant-dropdown-link" onClick={e => e.preventDefault()} href='/'>
                     {this.props.name} <DownOutlined />
                 </a>
             </Dropdown>

@@ -48,13 +48,13 @@ class Login extends Component {
                             name="account"
                             rules={[
                                 {
+                                    required: true,
+                                    message: '请输入您的账号!',
+                                },
+                                {
                                     min: 8,
                                     max: 32,
                                     message: '账号长度在8-32位!'
-                                },
-                                {
-                                    required: true,
-                                    message: '请输入您的账号!',
                                 },
                             ]}
                         >
@@ -64,13 +64,13 @@ class Login extends Component {
                             name="password"
                             rules={[
                                 {
+                                    required: true,
+                                    message: '请输入您的密码!',
+                                },
+                                {
                                     min: 8,
                                     max: 32,
                                     message: '密码长度在8-32位!'
-                                },
-                                {
-                                    required: true,
-                                    message: '请输入您的密码!',
                                 },
                             ]}
                         >
