@@ -9,6 +9,10 @@ import * as Ajax from '../../util/Ajax'
 
 class UserInfoMenu extends Component {
 
+    constructor(props) {
+        super(props)
+    }
+
     logoutRequest = () => {
         Ajax.GET('/exam/user/logout', (res) => this.props.history.push('/login'), this.props.history);
     }
@@ -91,16 +95,16 @@ class UserInfoMenu extends Component {
 
     UserMenu = () => {
         if (this.props.name != null) {
-            return <this.LoginMenu />;
+            return this.LoginMenu();
         } else {
-            return <this.NotLoginMenu />;
+            return this.NotLoginMenu();
         }
     }
 
     render() {
         return (
             <div>
-                {this.UserMenu()}
+                <this.UserMenu></this.UserMenu>
             </div>
         )
     }
