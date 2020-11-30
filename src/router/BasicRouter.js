@@ -14,6 +14,7 @@ import PaperAnswerList from '../component/student/PaperAnswerList';
 import AnswerProblem from '../component/student/AnswerProblem';
 import TeachersManager from '../component/admin/TeachersManager';
 import CreateTeacherAccount from '../component/admin/CreateTeacherAccount';
+import ImagesEdit from '../component/teacher/ImagesEdit';
 
 class BasicRouter extends Component {
 
@@ -57,6 +58,9 @@ class BasicRouter extends Component {
                         ></Route>
                         <Route
                             path='/createTeacherAccount' exact component={CreateTeacherAccount}
+                        ></Route>
+                        <Route
+                            path='/imagesEdit' exact component={ImagesEdit}
                         ></Route>
                     </Page>
                 </Switch>

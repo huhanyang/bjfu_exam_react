@@ -8,6 +8,8 @@ import '../common/Common.css'
 import * as Ajax from '../../util/Ajax'
 import * as ProblemTypeEnum from '../../enum/ProblemTypeEnum'
 import AddProblem from './AddProblem'
+import * as FileUtil from '../../util/FileUtil'
+import ImagesEdit from './ImagesEdit'
 
 const { Panel } = Collapse
 
@@ -18,7 +20,7 @@ class EditPaper extends Component {
         this.state = {
             visible: false,
             paper: null,
-            fatherProblemId: null
+            fatherProblemId: null,
         }
     }
 
@@ -82,6 +84,10 @@ class EditPaper extends Component {
             }>
                 <h1>{problem.title}</h1>
                 <p>{problem.material}</p>
+                <ImagesEdit 
+                    problemId={problem.id}
+                    images={problem.images}
+                />
                 {other(problem)}
             </Panel>
         )
@@ -124,6 +130,10 @@ class EditPaper extends Component {
                         >
                             <h1>{problem.title}</h1>
                             <p>{problem.material}</p>
+                            <ImagesEdit 
+                                problemId={problem.id}
+                                images={problem.images}
+                            />
                             {other(problem)}
                         </Panel>
                     )}

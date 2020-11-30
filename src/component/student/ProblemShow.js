@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-import { Row } from 'antd';
+import { Row, Image } from 'antd';
 import "antd/dist/antd.css"
 
 import '../common/Common.css'
@@ -20,6 +20,14 @@ class ProblemShow extends Component {
                 </Row>
                 <Row>
                     {problem.material}
+                </Row>
+                <Row>
+                    {
+                        JSON.parse(problem.images).map(imageUrl => 
+                            <Image src={"/exam-img/"+imageUrl}
+                                width={200} />
+                        )
+                    }
                 </Row>
             </div>
         )

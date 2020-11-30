@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-import { Table, Switch, Space, PageHeader, message, Modal } from 'antd';
+import { Table, Switch, PageHeader, message } from 'antd';
 
 import * as AJAX from '../../util/Ajax'
 import '../common/Common.css'
