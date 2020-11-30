@@ -34,7 +34,7 @@ class CreatePaperAnswer extends Component {
 
     showPaperInfo = (props) => {
         if (props.paper == null) {
-            return null;
+            return (<></>)
         } else {
             return (
                 <Descriptions size="small" column={1}>
@@ -47,7 +47,7 @@ class CreatePaperAnswer extends Component {
 
     collectionForm = (props) => {
         if (props.paper == null) {
-            return null
+            return (<></>)
         } else {
             let formItems = JSON.parse(props.paper.collection).map((item) => {
                 return (

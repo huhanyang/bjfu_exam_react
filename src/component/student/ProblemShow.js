@@ -8,7 +8,7 @@ import '../common/Common.css'
 class ProblemShow extends Component {
 
     problemShow = (props) => {
-        if(props.problem == null) return null
+        if(props.problem == null) return (<></>)
         let problem = props.problem
         return (
             <div>
@@ -35,7 +35,7 @@ class ProblemShow extends Component {
 
     render() {
         if(this.props.problem == null) {
-            return null
+            return (<></>)
         } else {
             return(
                 <div>

@@ -49,7 +49,7 @@ class PaperAnswerList extends Component {
         { title: '动作', dataIndex: 'action',
             render: (text, record) => {
                 if (record.state === PaperAnswerStateEnum.FINISH || record.state === PaperAnswerStateEnum.OVERTIME) {
-                    return null;
+                    return (<></>)
                 } else {
                     return (
                         <div>

@@ -73,7 +73,7 @@ class EditPaper extends Component {
                 let choices = JSON.parse(problem.answer)
                 return choices.map((choice) => <Checkbox>{choice}</Checkbox>);
             } else {
-                return null;
+                return (<></>);
             }
         }
         let problemList = subProblems.map((problem) =>
@@ -140,7 +140,7 @@ class EditPaper extends Component {
                 </Collapse>
             )
         } else {
-            return null;
+            return (<></>);
         }
     }
 

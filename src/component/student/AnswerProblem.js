@@ -87,7 +87,7 @@ class AnswerProblem extends Component {
     }
 
     problemAnswerForm = (props) => {
-        if (props.problem == null) return null
+        if (props.problem == null) return (<></>)
         let content
         if (props.problem.type === 1) {
             let radios = JSON.parse(props.problem.answer).map((answer) => <Radio value={answer}>{answer}</Radio>)

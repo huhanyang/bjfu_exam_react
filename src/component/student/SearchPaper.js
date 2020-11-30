@@ -28,7 +28,7 @@ class SearchPaper extends Component {
 
     showPaper = (props) => {
         if (props.paper == null) {
-            return null
+            return (<></>)
         } else {
             let paper = props.paper
             return (
