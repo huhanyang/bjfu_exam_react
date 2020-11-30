@@ -44,6 +44,10 @@ class AnswerProblem extends Component {
 
     getProblemRequest = (paperAnswerId) => {
         AJAX.GET('/exam/answer/getNextProblem?paperAnswerId=' + paperAnswerId, (res) => {
+            if(res.data.object == null) {
+                message.success("答题结束！")
+                this.props.history.push('/paperAnswerList')
+            }
             this.setState({
                 paperAnswer: res.data.object,
                 startTime: Date.now(),

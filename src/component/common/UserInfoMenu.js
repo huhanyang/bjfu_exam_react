@@ -33,7 +33,16 @@ class UserInfoMenu extends Component {
         }
     ];
 
-    adminMenuItems = [];
+    adminMenuItems = [
+        {
+            url: "/createTeacherAccount",
+            msg: "创建教师"
+        },
+        {
+            url: "/teachersManager",
+            msg: "管理教师"
+        }
+    ];
 
     LoginMenu = () => {
         let menuItems;

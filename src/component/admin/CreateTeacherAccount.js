@@ -5,25 +5,18 @@ import { Form, Input, Tooltip, Button, PageHeader, message } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 
 import * as Ajax from '../../util/Ajax'
-import * as UserTypeEnum from '../../enum/UserTypeEnum'
 import '../common/Common.css'
 
-class Register extends Component {
+class CreateTeacherAccount extends Component {
 
     onFinish = (values) => {
-        Ajax.PUT('/exam/user/register', {
+        Ajax.PUT('/exam/admin/createTeacherAccount', {
             account: values.account,
             password: values.password,
             name: values.name
         }, (res) => {
-            message.success('注册成功');
-            if (res.data.object.type === UserTypeEnum.TEACHER) {
-                this.props.history.push('/paperList');
-            } else if(res.data.object.type === UserTypeEnum.STUDENT) {
-                this.props.history.push('/searchPaper');
-            } else {
-                this.props.history.push('/teachersManager');
-            }
+            message.success('创建成功');
+            this.props.history.push('/teachersManager');
         }, this.props.history);
     };
 
@@ -33,7 +26,7 @@ class Register extends Component {
                 <PageHeader
                     className="site-page-header"
                     onBack={() => this.props.history.goBack()}
-                    title="注册"
+                    title="创建教师账号"
                 />
                 <div className="component-content">
                     <Form
@@ -108,7 +101,7 @@ class Register extends Component {
                             label={
                             <span>
                                 真实姓名&nbsp;
-                                <Tooltip title="真实姓名用于老师辨认">
+                                <Tooltip title="真实姓名仅用于便于辨认">
                                 <QuestionCircleOutlined />
                                 </Tooltip>
                             </span>
@@ -118,7 +111,7 @@ class Register extends Component {
                             <Input />
                         </Form.Item>
                         <Form.Item>
-                            <Button type="primary" htmlType="submit" className="component-content-button">注册</Button>
+                            <Button type="primary" htmlType="submit" className="component-content-button">添加账号</Button>
                         </Form.Item>
                     </Form>
                 </div>
@@ -128,4 +121,4 @@ class Register extends Component {
 
 }
 
-export default withRouter(Register);
+export default withRouter(CreateTeacherAccount);

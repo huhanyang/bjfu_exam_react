@@ -12,6 +12,8 @@ import SearchPaper from '../component/student/SearchPaper';
 import CreatePaperAnswer from '../component/student/CreatePaperAnswer';
 import PaperAnswerList from '../component/student/PaperAnswerList';
 import AnswerProblem from '../component/student/AnswerProblem';
+import TeachersManager from '../component/admin/TeachersManager';
+import CreateTeacherAccount from '../component/admin/CreateTeacherAccount';
 
 class BasicRouter extends Component {
 
@@ -49,6 +51,12 @@ class BasicRouter extends Component {
                         ></Route>
                         <Route
                             path='/answerProblem' exact component={AnswerProblem}
+                        ></Route>
+                        <Route
+                            path='/teachersManager' exact component={TeachersManager}
+                        ></Route>
+                        <Route
+                            path='/createTeacherAccount' exact component={CreateTeacherAccount}
                         ></Route>
                     </Page>
                 </Switch>

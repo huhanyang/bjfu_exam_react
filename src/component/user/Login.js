@@ -23,7 +23,7 @@ class Login extends Component {
             } else if(res.data.object.type === UserTypeEnum.STUDENT) {
                 this.props.history.push('/searchPaper');
             } else {
-                this.props.history.push('/createTeacher');
+                this.props.history.push('/teachersManager');
             }
         }, this.props.history);
     }
