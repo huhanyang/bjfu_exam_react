@@ -19,11 +19,14 @@ class Login extends Component {
         }, (res) => {
             message.success('登陆成功');
             if (res.data.object.type === UserTypeEnum.TEACHER) {
-                this.props.history.push('/paperList');
+                this.props.history.push('paperList');
+                this.props.history.go();
             } else if(res.data.object.type === UserTypeEnum.STUDENT) {
-                this.props.history.push('/searchPaper');
+                this.props.history.push('searchPaper');
+                this.props.history.go();
             } else {
-                this.props.history.push('/teachersManager');
+                this.props.history.push('teachersManager');
+                this.props.history.go();
             }
         }, this.props.history);
     }

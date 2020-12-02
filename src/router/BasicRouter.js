@@ -5,16 +5,19 @@ import Page from '../page/Page'
 import Login from '../component/user/Login'
 import Register from '../component/user/Register'
 import ChangePassword from '../component/user/ChangePassword'
+
 import CreatePaper from '../component/teacher/CreatePaper';
 import EditPaper from '../component/teacher/EditPaper';
 import PaperList from '../component/teacher/PaperList';
+
 import SearchPaper from '../component/student/SearchPaper';
 import CreatePaperAnswer from '../component/student/CreatePaperAnswer';
 import PaperAnswerList from '../component/student/PaperAnswerList';
 import AnswerProblem from '../component/student/AnswerProblem';
+import ImagesEdit from '../component/teacher/ImagesEdit';
+
 import TeachersManager from '../component/admin/TeachersManager';
 import CreateTeacherAccount from '../component/admin/CreateTeacherAccount';
-import ImagesEdit from '../component/teacher/ImagesEdit';
 
 class BasicRouter extends Component {
 

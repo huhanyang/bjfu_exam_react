@@ -14,7 +14,10 @@ class UserInfoMenu extends Component {
     }
 
     logoutRequest = () => {
-        Ajax.GET('/exam/user/logout', (res) => this.props.history.push('/login'), this.props.history);
+        Ajax.GET('/exam/user/logout', (res) => {
+            this.props.history.push('/login')
+            this.props.history.go()
+        }, this.props.history);
     }
 
     teacherMenuItems = [

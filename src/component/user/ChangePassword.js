@@ -16,6 +16,7 @@ class ChangePassword extends Component {
         }, (res) => {
             message.success('密码修改成功，请重新登录！');
             this.props.history.push('/login')
+            this.props.history.go();
         }, this.props.history)
     };
 
