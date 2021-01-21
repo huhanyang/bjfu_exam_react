@@ -10,30 +10,37 @@ import * as ProblemTypeEnum from '../../enum/ProblemTypeEnum'
 
 const { TextArea } = Input;
 
-class AddProblem extends Component {
+class EditProblem extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            type: null,
             collection: [],
             inputVisible: false,
             inputValue: '',
         }
     }
 
+    componentDidMount() {
+        if(this.props.editProblem != null) {
+            this.setState({collection: JSON.parse(this.props.editProblem.answer)})
+        }
+    }
+
     onFinish = (values) => {
-        Ajax.PUT('/exam/paper/addProblem', {
-            paperId: this.props.paperId,
-            fatherProblemId: this.props.fatherProblemId,
+        var answer = null;
+        if(this.props.editProblem!=null && this.props.editProblem.type === ProblemTypeEnum.CHOICE_PROBLEM) {
+            answer = JSON.stringify(this.state.collection);
+        }
+        Ajax.POST('/exam/paper/editProblem', {
+            problemId: this.props.editProblem.id,
             title: values.title,
             material: values.material,
-            type: values.type,
-            answer: JSON.stringify(this.state.collection)
+            answer: answer
         }, (res) => {
             this.props.refreshProblems(this.props.paperId)
             this.props.visibleChange()
-        }, this.props.history)
+        }, this.props.history);
     }
 
     handleClose = removedTag => {
@@ -83,8 +90,11 @@ class AddProblem extends Component {
     };
 
     otherForm = (props) => {
+        if(props.editProblem == null) {
+            return <div/>
+        }
         const { collection, inputVisible, inputValue } = this.state;
-        if (props.type === ProblemTypeEnum.CHOICE_PROBLEM) {
+        if (props.editProblem.type === ProblemTypeEnum.CHOICE_PROBLEM) {
             return (
                 <Form.Item label="选项">
                     <div style={{ marginBottom: 16 }}>
@@ -114,52 +124,30 @@ class AddProblem extends Component {
         }
     }
 
-    problemTypeRadio = (fatherProblemId) => {
-        if (fatherProblemId != null) {
-            return (
-                <>
-                    <Radio.Button value={ProblemTypeEnum.CHOICE_PROBLEM}>选择题</Radio.Button>
-                    <Radio.Button value={ProblemTypeEnum.MATERIAL_PROBLEM}>材料题</Radio.Button>
-                </>
-            )
-        } else {
-            return (
-                <>
-                    <Radio.Button value={ProblemTypeEnum.CHOICE_PROBLEM}>选择题</Radio.Button>
-                    <Radio.Button value={ProblemTypeEnum.MATERIAL_PROBLEM}>材料题</Radio.Button>
-                    <Radio.Button value={ProblemTypeEnum.FATHER_PROBLEM}>组合题</Radio.Button>
-                </>
-            )
-        }
-    }
-
     render() {
+        var title = null;
+        var material = null;
+        if(this.props.editProblem != null) {
+            title = this.props.editProblem.title;
+            material = this.props.editProblem.material;
+        }
         return (
             <div>
                 <Modal
-                    title="创建试题"
-                    visible={this.props.visible}
+                    title="修改试题"
+                    visible={this.props.editProblem != null}
                     footer={null}
+                    onOk={()=>this.props.visibleChange()}
                     onCancel={()=>this.props.visibleChange()}
                 >
                     <Form
                         name="create-problem-form"
                         onFinish={this.onFinish}
+                        initialValues={{
+                            title: title,
+                            material: material
+                        }}
                     >
-                        <Form.Item
-                            label="题目类型"
-                            name="type"
-                            rules={[{ required: true, message: '选择要创建的题目类型' }]}
-                        >
-                            <Radio.Group onChange={e => {
-                                this.setState({
-                                    type: e.target.value
-                                })
-                            }}
-                            >
-                                {this.problemTypeRadio(this.props.fatherProblemId)}
-                            </Radio.Group>
-                        </Form.Item>
                         <Form.Item
                             name="title"
                             label="题目标题"
@@ -174,10 +162,10 @@ class AddProblem extends Component {
                         >
                             <TextArea rows={4} />
                         </Form.Item>
-                        <this.otherForm type={this.state.type}></this.otherForm>
+                        <this.otherForm editProblem={this.props.editProblem}></this.otherForm>
                         <Form.Item>
                             <Button type="primary" htmlType="submit" className="component-content-button">
-                                创建试题
+                                修改
                         </Button>
                         </Form.Item>
                     </Form>
@@ -187,4 +175,4 @@ class AddProblem extends Component {
     }
 }
 
-export default withRouter(AddProblem)
+export default withRouter(EditProblem)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-import { Collapse, PageHeader, Button, Checkbox, message } from 'antd';
-import { DeleteOutlined } from '@ant-design/icons';
+import { Collapse, PageHeader, Button, Checkbox, message, Modal } from 'antd';
+import { DeleteOutlined, EditOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import "antd/dist/antd.css"
 
 import '../common/Common.css'
@@ -10,17 +10,21 @@ import * as ProblemTypeEnum from '../../enum/ProblemTypeEnum'
 import AddProblem from './AddProblem'
 import * as FileUtil from '../../util/FileUtil'
 import ImagesEdit from './ImagesEdit'
+import EditProblem from './EditProblem';
 
 const { Panel } = Collapse
+const { confirm } = Modal;
 
 class EditPaper extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            visible: false,
+            addProblemVisible: false,
             paper: null,
             fatherProblemId: null,
+            deleteProblem: null,
+            editProblem: null
         }
     }
 
@@ -43,28 +47,24 @@ class EditPaper extends Component {
 
     deleteProblemRequest = (paperId, problem) => {
         Ajax.DELETE('/exam/paper/deleteProblem?paperId='+paperId+'&problemId='+problem.id, (res) => {
-            this.getProblemsRequest(paperId)
+            this.setState({deleteProblem: null});
+            this.getProblemsRequest(paperId);
         }, this.props.history)
     }
 
-    deleteButton = (problem) => (
-        <DeleteOutlined onClick={(e) => {
-            this.deleteProblemRequest(this.props.history.location.paperId, problem)
-            e.stopPropagation()
-        }} />
+    panelExtra = (problem) => (
+        <>
+            <EditOutlined onClick={(e) => {
+                this.setState({ editProblem: problem });
+                e.stopPropagation();
+            }} />
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <DeleteOutlined onClick={(e) => {
+                this.setState({ deleteProblem: problem });
+                e.stopPropagation();
+            }} />
+        </>
     );
-
-    handleOk = e => {
-        this.setState({
-            visible: false,
-        });
-    };
-
-    handleCancel = e => {
-        this.setState({
-            visible: false,
-        });
-    };
 
     subProblemList = (fatherProblem) => {
         let subProblems = fatherProblem.subProblems
@@ -80,10 +80,10 @@ class EditPaper extends Component {
             <Panel 
                 header={'第' + problem.sort + '小题'} 
                 key={problem.sort} 
-                extra={this.deleteButton(problem)
-            }>
+                extra={this.panelExtra(problem)}
+            >
                 <h1>{problem.title}</h1>
-                <p>{problem.material}</p>
+                <h1>{problem.material}</h1>
                 <ImagesEdit 
                     problemId={problem.id}
                     images={problem.images}
@@ -99,7 +99,7 @@ class EditPaper extends Component {
                 <br />
                 <Button className="component-content-button" type="primary" onClick={() => {
                     this.setState({
-                        visible: true,
+                        addProblemVisible: true,
                         fatherProblemId: fatherProblem.id
                     })
                 }}>创建新试题</Button>
@@ -126,10 +126,10 @@ class EditPaper extends Component {
                         <Panel 
                             header={'第' + problem.sort + '题'} 
                             key={problem.sort} 
-                            extra={this.deleteButton(problem)}
+                            extra={this.panelExtra(problem)}
                         >
                             <h1>{problem.title}</h1>
-                            <p>{problem.material}</p>
+                            <h1>{problem.material}</h1>
                             <ImagesEdit 
                                 problemId={problem.id}
                                 images={problem.images}
@@ -157,22 +157,41 @@ class EditPaper extends Component {
                     <br />
                     <Button className="component-content-button" type="primary" onClick={() => {
                         this.setState({
-                            visible: true,
+                            addProblemVisible: true,
                             fatherProblemId: null
                         })
                     }}>创建新试题</Button>
                     <AddProblem
-                        visible={this.state.visible}
+                        visible={this.state.addProblemVisible}
                         paperId={this.props.history.location.paperId}
                         fatherProblemId={this.state.fatherProblemId}
                         visibleChange={() => {
                             this.setState({
-                                visible: !this.state.visible,
+                                addProblemVisible: !this.state.addProblemVisible,
                                 fatherProblemId: null
                             })
                         }}
                         refreshProblems={this.getProblemsRequest}
                     />
+                    {this.state.editProblem==null?<></>:
+                    <EditProblem
+                        visibleChange={() => {this.setState({ editProblem: null })}}
+                        paperId={this.props.history.location.paperId}
+                        editProblem={this.state.editProblem}
+                        refreshProblems={this.getProblemsRequest}
+                    />}
+                    <Modal 
+                        title="删除试题" 
+                        visible={this.state.deleteProblem!=null} 
+                        okText="删除"
+                        cancelText="取消"
+                        onOk={() => {
+                            this.deleteProblemRequest(this.props.history.location.paperId, this.state.deleteProblem);
+                        }} 
+                        onCancel={() => {this.setState({deleteProblem: null});}}
+                    >
+                        <p>您确定要删除这道试题么?</p>
+                    </Modal>
                 </div>
             </div>
         )

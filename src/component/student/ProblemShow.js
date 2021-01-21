@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from "react-router-dom";
-import { Row, Image } from 'antd';
+import { Row, Image, Divider } from 'antd';
 import "antd/dist/antd.css"
 
 import '../common/Common.css'
@@ -13,19 +13,19 @@ class ProblemShow extends Component {
         return (
             <div>
                 <Row>
-                    {'第'+problem.sort+'题'}
+                    <h1>{'第'+problem.sort+'题'}</h1>
                 </Row>
                 <Row>
-                    {problem.title}
+                    <h2>{problem.title}</h2>
                 </Row>
                 <Row>
-                    {problem.material}
+                    <h2>{problem.material}</h2>
                 </Row>
                 <Row>
                     {
                         JSON.parse(problem.images).map(imageUrl => 
                             <Image src={"/exam-img/"+imageUrl}
-                                width={200} />
+                                width={400} />
                         )
                     }
                 </Row>
@@ -40,6 +40,7 @@ class ProblemShow extends Component {
             return(
                 <div>
                     <this.problemShow problem={this.props.problem.fatherProblem}/>
+                    {this.props.problem.fatherProblem == null?<></>:<Divider>子题干</Divider>}
                     <this.problemShow problem={this.props.problem}/>
                 </div>
             );
