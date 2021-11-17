@@ -21,6 +21,7 @@ class AnswerProblem extends Component {
             isEditTime: 0
         }
     }
+    formRef = React.createRef();
 
     componentDidMount() {
         if (this.props.history.location.paperAnswerId == null) {
@@ -47,15 +48,17 @@ class AnswerProblem extends Component {
             if(res.data.object == null) {
                 message.success("答题结束！")
                 this.props.history.push('/paperAnswerList')
+            } else {
+                this.setState({
+                    startTime: Date.now(),
+                    editTime: 0,
+                    answeringProblem: res.data.object,
+                    firstEditTime: null,
+                    isEdit: false
+                });
+                // 清空输入
+                this.formRef.current.resetFields();
             }
-            this.setState({
-                paperAnswer: res.data.object,
-                startTime: Date.now(),
-                editTime: 0,
-                answeringProblem: res.data.object,
-                firstEditTime: null,
-                isEdit: false
-            })
         }, this.props.history)
     }
 
@@ -119,6 +122,7 @@ class AnswerProblem extends Component {
         }
         return (
             <Form
+                ref={this.formRef}
                 onFinish={(values) => {
                     this.submitAnswerRequest(values.answer)
                 }}
